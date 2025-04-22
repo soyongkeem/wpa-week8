@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>★☆★☆ 국민가요 플레이어 ★☆★☆</title>
+  
+  <style>
+.cursor {
+  width: 10px;
+  height: 10px;
+  background-color: rgb(0, 232, 225);
+  border-radius: 50%;
+  position: fixed;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 1000;
+}
+
+.cursor-outline {
+  width: 45px;
+  height: 45px;
+  border: 2px dashed rgb(0, 232, 225); /* <<< 점선(dashed)으로 변경 */
+  border-radius: 50%;
+  position: fixed;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 999;
+  transition: all 0.01s linear; /* 더 빠르게 따라오게 */
+  animation: spin 5s linear infinite;
+}
+@keyframes spin {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+/* 기본 커서 없애기 */
+body {
+  cursor: none;
+        background-size: auto;
+        background-image: url(bg.gif);
+        background-attachment: fixed;
+        font-family: 'ChosunGu', sans-serif;
+        margin: 0;
+        background-color: #000034;
+        line-height: 150%;
+        padding: 0;
+        font-size: 18px;
+    }
+    ::-webkit-scrollbar {
+    width: 16px;
+    background: #d4d0c8;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #c0c0c0;
+        border: 2px solid #747474;
+        border-radius: 0;
+      }
+      ::-webkit-scrollbar-button {
+        background: #c0c0c0;
+        height: 16px;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+
+    .container {
+      padding-top: 100px;
+      width: 900px;
+      margin: 0 auto;
+      background-image: url(bg.gif);
+    }
+    .no-container {
+      padding-top: 100px;
+      width: 900px;
+      margin: 0 auto;
+    }
+    .white-section {
+  width: 100%;
+  background-color: white;
+  background-image: url('bg.gif');
+  background-attachment: fixed;
+  padding: 50px 0;
+  padding-top: 100px;
+  }
+  .jude-section {
+    background-color: rgb(0, 255, 247); /* 위아래 남는 부분 검정 */
+    background-image: url('bg.gif');
+  background-attachment: fixed;
+  background-repeat: repeat;
+  background-position: center;
+  padding: 100px 0; /* 안쪽 여백 */
+}
+    .header {
+      background: linear-gradient(to bottom, #000080, #0000FF);
+      color: #ffffff;
+      text-align: center;
+      padding: 15px;
+      border: 5px outset #c0c0c0;
+      margin-bottom: 20px;
+      position: relative;
+    }
+    
+    .header:before, .header:after {
+      content: "♫";
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 36px;
+      color: #ffffff;
+    }
+    
+    .header:before {
+      left: 20px;
+    }
+    
+    .header:after {
+      right: 20px;
+    }
+    
+    h1 {
+      font-size: 36px;
+      text-shadow: 3px 3px #ff0000, -1px -1px #ffffff;
+      margin: 5px;
+      letter-spacing: 2px;
+    }
+    
+    .welcome {
+      background: linear-gradient(to right, #000000, #0000FF, #000000);
+      color: #00ff00;
+      font-weight: bold;
+      padding: 8px;
+      text-align: center;
+      margin-bottom: 20px;
+      border: 2px inset #c0c0c0;
+      font-size: 18px;
+      text-shadow: 1px 1px #000000;
+    }
+    
+    .section {
+      color: white;
+      border: 5px outset #c0c0c0;
+      padding: 5px 40px 40px;
+      margin-bottom: 55px;
+      background: linear-gradient(to bottom, #000080, #000044);
+      position: relative;
+  }
+
+  .small-section {
+      
+      height: 230px; /* 원하는 높이로 고정 */
+      border: 5px outset #c0c0c0;
+      padding: 15px;
+      margin-bottom: 15px;
+      background: linear-gradient(to bottom, #000080, #000044);
+      position: relative;
+  }
+
+    
+    h2 {
+      color: #ffffff;
+      text-align: center;
+      font-size: 24px;
+      background: linear-gradient(to right, #000000, #000080, #000000);
+      padding: 8px;
+      border: 3px outset #ffffff;
+      margin-top: -25px;
+      position: relative;
+      width: 80%;
+      left: 10%;
+      text-shadow: 2px 2px #000000;
+    }
+    
+    table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 2px;
+      margin-top: 15px;
+      background-color: #c0c0c0;
+    }
+    
+    th {
+      background: linear-gradient(to bottom, #000080, #0000FF);
+      color: #ffffff;
+      border: 3px outset #c0c0c0;
+      font-weight: bold;
+      padding: 8px;
+      text-shadow: 1px 1px #000000;
+    }
+    p {
+      font-size: 20px;
+      line-height: 160%;
+    }
+    td {
+      border: 3px inset #ffffff;
+      padding: 8px;
+      background: linear-gradient(to bottom, #ffffff, #e0e0e0);
+      color: #000000;
+      vertical-align: middle; 
+    }
+    
+    .counter {
+      background-color: rgba(0, 0, 0, 0.079);
+      border: 3px outset #ffffff;
+      padding: 30px;
+      text-align: center;
+      font-weight: bold;
+      color: #b4fff9;
+      font-size: 18px;
+      text-shadow: 2px 2px #000000;
+      margin-bottom: 60px;
+    }
+    
+    hr {
+      border: 2px dashed #ffffff;
+      margin: 15px 0;
+    }
+    
+    ul {
+      list-style-image: url("/api/placeholder/20/20");
+      color: #ffffff;
+      margin-left: 30px;
+      font-size: 16px;
+    }
+    
+    li {
+      margin-bottom: 8px;
+      text-shadow: 1px 1px #000000;
+    }
+    
+    .button {
+      background: linear-gradient(to bottom, #c0c0c0, #808080);
+      border: 5px outset #ffffff;
+      padding: 8px 15px;
+      color: #000000;
+      font-weight: bold;
+      text-decoration: none;
+      display: inline-flex; /* 수정 */
+      align-items: center; /* 수정 */
+      justify-content: center; /* 수정 */
+      font-size: 16px;
+      margin: 5px;
+      cursor: pointer;
+      box-shadow: 3px 3px 5px rgba(0,0,0,0.5);
+    }
+
+    
+    .button:hover {
+      background: linear-gradient(to bottom, #808080, #c0c0c0);
+      border: 5px inset #ffffff;
+      position: relative;
+      top: 1px;
+      left: 1px;
+      box-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    }
+    
+    .reviews {
+      background-color: #ffffff;
+      color: #000000;
+      padding: 20px 50px;
+      border: 3px inset #c0c0c0;
+      box-shadow: inset 0 0 10px #000000;
+    }
+    
+    .review {
+      padding: 15px;
+      border: 2px solid #000080;
+      background: linear-gradient(to bottom, #e0e0e0, #c0c0c0);
+      border-radius: 5px;
+    }
+    
+    .footer {
+      text-align: center;
+      font-size: 14px;
+      color: #8c8c8c;
+      padding: 50px;
+      border-top: 2px solid #ffffff;
+      background: linear-gradient(to bottom, #000080, #000044);
+      text-shadow: 1px 1px #000000;
+    }
+    
+    .blink {
+      animation: blinker 1s linear infinite;
+    }
+    
+    @keyframes blinker {
+      50%{ opacity: 0; }
+    }
+    
+    .rotate {
+      animation: rotate 6s linear infinite;
+      display: inline-block;
+    }
+    
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    
+    .shake {
+      animation: shake 0.5s linear infinite;
+      display: inline-block;
+    }
+    
+    @keyframes shake {
+      0% { transform: translate(1px, 1px) rotate(0deg); }
+      10% { transform: translate(-1px, -2px) rotate(-1deg); }
+      20% { transform: translate(-3px, 0px) rotate(1deg); }
+      30% { transform: translate(3px, 2px) rotate(0deg); }
+      40% { transform: translate(1px, -1px) rotate(1deg); }
+      50% { transform: translate(-1px, 2px) rotate(-1deg); }
+      60% { transform: translate(-3px, 1px) rotate(0deg); }
+      70% { transform: translate(3px, 1px) rotate(-1deg); }
+      80% { transform: translate(-1px, -1px) rotate(1deg); }
+      90% { transform: translate(1px, 2px) rotate(0deg); }
+      100% { transform: translate(1px, -2px) rotate(-1deg); }
+    }
+    
+    
+    .guestbook {
+      text-align: center;
+      color: #000000;
+      margin: 10px 0;
+      background: linear-gradient(to right, #000080, #0000FF, #000080);
+      padding: 18px;
+      border: 3px outset #c0c0c0;
+    }
+    
+    .banner-space {
+      text-align: center;
+      margin: 20px 0;
+      padding: 30px;
+      border: 3px inset #c0c0c0;
+      background: #000000;
+    }
+    .banner-space td {
+      text-align: center;
+      padding: 0; /* 여백 없애기 */
+    }
+
+    .banner-space img {
+      display: block;
+      width: 100%; /* 칸(td) 가득! */
+      height: auto; /* 비율 유지 */
+    }
+    .midi-player {
+      text-align: center;
+      padding: 20px;
+      border: 3px outset #ffffff;
+      background: #000000;
+      margin-bottom: 50px;
+      color: #00ffd5;
+    }
+    
+    .new-tag {
+      color: #FF0000;
+      font-weight: bold;
+      font-size: 14px;
+      vertical-align: super;
+      animation: blinker 0.5s linear infinite;
+    }
+    marquee {
+      border: 5px outset #c0c0c0;
+    }
+    a {
+      color: #00ffff62;
+      font-weight: bold;
+      text-decoration: none;
+    }
+    
+    a:visited {
+      color: #000000;
+    }
+
+
+    
+    @keyframes twinkle {
+      from { opacity: 0.7; }
+      to { opacity: 1; text-shadow: 0 0 2px #ffff00; }
+    }
+    
+    .floating {
+      animation: float 6s ease-in-out infinite;
+      position: relative;
+    }
+    @font-face {
+    font-family: 'ChosunGu';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@1.0/ChosunGu.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+
+      
+    }
+    .welcome-image {
+    
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    height: 100vh; /* 화면 가득 */
+    background-image:  url('welcome.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  </style>
+</head>
+<body>
+  <div class="cursor"></div>
+  <div class="cursor-outline"></div>
+  
+  <div class="welcome-image">
+  </div>
+
+<div class="white-section">
+  <div class="container">
+  <h2>국민가요란?</h2>
+  <table width="100%" border="0" cellspacing="0" cellpadding="10" style="margin-bottom: 50px;">
+    <tr>
+      <td style="vertical-align: middle; text-align: center; height: 300px;">
+        <div style="display: flex; align-items: center; justify-content: center; height: 100%;">
+          <img src="earth.gif" alt="World Globe" style="width: 200px;">
+        </div>
+      </td>
+      <td width="70%" style="vertical-align: middle; padding: 10px;">
+        <p>
+          국민가요는 각국을 대표하는 상징적인 노래로 대중의 정서와 문화를 담아<br>
+          시대를 초월해 사랑받는 곡들을 의미합니다.<br>
+          <span style="color: #1500ff; font-weight: bold;">지구본과 함께 국민가요 200곡을 탐험하세요!</span>
+        </p>
+        <div style="text-align: right; margin-top: 10px;">
+          <a href="https://soyongkeem.github.io/exhibition/" class="button">자세히 알아보기</a>
+        </div>  
+      </td>
+    </tr>
+  </table>  
+    <marquee behavior="scroll" direction="left" scrollamount="5" style="background: #000000; color: #FFFFFF; padding: 15px;">
+      <span style="color: red;">♫</span>
+      <span style="color: orange;">♪</span>
+      <span style="color: yellow;">♫</span>
+      <span style="color: green;">♪</span>
+      <span style="color: blue;">♫</span>
+      <span style="color: purple;">♪</span>
+      <b>HOT NEWS:</b> 최신 국민가요 50곡 추가됨! 베스트 TOP10 순위 업데이트! 새로운 DJ 믹스 코너 오픈!
+      <span style="color: purple;">♪</span>
+      <span style="color: blue;">♫</span>
+      <span style="color: green;">♪</span>
+      <span style="color: yellow;">♫</span>
+      <span style="color: orange;">♪</span>
+      <span style="color: red;">♫</span>
+    </marquee>
+      
+    <div class="midi-player">
+      <div style="font-weight: bold;">♫ 배경음악 플레이어 ♫</div>
+      <div style="margin: 5px 0;">
+        현재 재생중: 붉은노을
+      </div>
+      <div>
+        <button class="button" style="font-size: 12px; padding: 3px 8px;">▶ 재생</button>
+        <button class="button" style="font-size: 12px; padding: 3px 8px;">■ 정지</button>
+        <button class="button" style="font-size: 12px; padding: 3px 8px;">≪ 이전</button>
+        <button class="button" style="font-size: 12px; padding: 3px 8px;">≫ 다음</button>
+      </div>
+    </div>
+  </div> 
+</div>
+
+
+<div class="container">
+    <div class="section">
+      <h2><span class="rotate">♫</span> 전 세계 사람들이 사랑한 국민 가요 200곡 <span class="rotate">♫</span></h2>
+      <p>
+        익숙하지만 몰랐던 멜로디의 정체를 여기서 알아보세요.<br>
+        <span class="blink" style="font-size: 20px; color: #ffffff;">국민가요 플레이어를 소개합니다!</span>
+      </p>
+      <div style="text-align: center; margin-top: 15px; color: #000000;">
+        <a href="https://soyongkeem.github.io/exhibition/" class="button">New 업데이트 확인하기 <span class="new-tag">HOT!</span></a>
+        <a href="#" class="button">MP3 다운로드 센터</a>
+      </div>
+    </div>   
+    <div class="section">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        
+        <td width="50%" valign="top">
+          <div class="small-section">
+            <h2>음악 선정 기준</h2>
+            <ul>
+              <li>2000년 이전 발매</li>
+              <li>떼창 가능, 신나야 함</li>
+              <li>지역 정서 반영</li>
+              <li>유튜브 조회수 100만 이상</li>
+              <li>내가 듣기 좋은 곡</li>
+            </ul>
+          </div>
+        </td>
+        <td width="50%" valign="top">
+          <div class="small-section">
+            <h2>동영상 선정 기준</h2>
+            <ul>
+              <li>음질과 화질이 좋은 라이브 공연 우선</li>
+              <li>그 다음으로 음질 좋은 영상</li>
+              <li><span class="shake"><strong>풀 HD</strong></span> 화질 지원 영상</li>
+              <li>정식 음원 및 영상 활용</li>
+            </ul>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+      
+</div>
+<div class="jude-section">
+  <div class="container">  
+      <h2>국가별 대표곡 <span class="new-tag">UPDATE!</span></h2>
+      <table>
+        <tr>
+          <th width="25%">국가</th>
+          <th width="30%">노래</th>
+          <th width="30%">가수</th>
+          <th width="15%">년도</th>
+        </tr>
+        <tr>
+          <td>🇰🇷 대한민국</td>
+          <td>붉은노을 <span class="new-tag">HOT</span></td>
+          <td>이문세</td>
+          <td>1988</td>
+        </tr>
+        <tr>
+          <td>🇯🇵 일본</td>
+          <td>푸른 산호초</td>
+          <td>마츠다 세이코</td>
+          <td>1986</td>
+        </tr>
+        <tr>
+          <td>🇬🇧 영국</td>
+          <td>Hey Jude</td>
+          <td>The Beatles</td>
+          <td>1961</td>
+        </tr>
+        <tr>
+          <td>🇺🇸 미국</td>
+          <td>Sweet Home Alabama</td>
+          <td>Lynyrd Skynyrd</td>
+          <td>1974</td>
+        </tr>
+        <tr>
+          <td>🇮🇹 이탈리아</td>
+          <td>Volare</td>
+          <td>Domenico Modugno</td>
+          <td>1958</td>
+        </tr>
+      </table>
+      <div style="text-align: right; margin-top: 10px;">
+        <a href="#" class="button">더 많은 국가 보기</a>
+      </div>
+    </div> 
+
+  <div class="container">
+      <div class="section">
+        <h2>사용자 후기</h2>
+        <div class="reviews">
+          <div class="review">
+            <b>조윤정</b> (23, 서울)<br>
+            붉은 노을을 정말 좋아요. 초등학교 졸업식 때 친구들과 부른 기억이 나요.
+          </div>
+          <hr>
+          <div class="review">
+            <b>한준희</b> (15, 용인)<br>
+            틱톡 챌린지로 빅뱅 붉은노을 연습 중입니다!
+          </div>
+          <hr>
+          <div class="review">
+            <b>나카무라 겐도</b> (55, 후쿠오카)<br>
+            푸른 산호초를 들으면 어린 시절이 떠올라요.
+          </div>
+          <hr>
+          <div class="review">
+            <b>존 도</b> (38, 리버풀)<br>
+            Hey Jude를 부르며 영국인이라는 정체성을 느껴요.
+          </div>
+        </div>
+        <div style="text-align: center; margin-top: 10px;">
+          <a href="#" class="button">내 리뷰 작성하기</a>
+          <a href="#" class="button">더 많은 리뷰 보기</a>
+        </div>
+      </div>
+  </div>
+</div>
+
+<div class="white-section"> 
+  <div class="container">
+    <div class="section">
+      <h2>플레이어 사용 예시</h2>
+      <p>
+        외국인 친구와 처음 만났을 때, 음악 하나로 자연스럽게 스몰토킹 주제를 만들 수 있어요.<br>
+        <span style="color: #00ffff; font-weight: bold;">국민가요 플레이어로 지구촌 생활을 슬기롭게!</span>
+      </p>
+      <table width="100%" border="0" cellspacing="10" cellpadding="0">
+        <tr>
+          <td width="33%" align="center">
+            <img src="karaoke.gif" style="height: 50px;"><br>
+            <strong>가라오케 모드</strong>
+          </td>
+          <td width="33%" align="center">
+            <img src="balloons.gif" style="height: 50px;"><br>
+            <strong>파티 모드</strong>
+          </td>
+          <td width="33%" align="center">
+            <img src="car.gif" style="max-height: 50px; "><br>
+            <strong>여행 모드</strong>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="section">
+    <div class="banner-space">
+      <table width="100%" border="0" cellspacing="5" cellpadding="0">
+        <tr>
+          <td width="25%" align="center">
+            <img src="soho.png" alt="Banner 1">
+          </td>
+          <td width="25%" align="center">
+            <img src="silicon.png" alt="Banner 2">
+          </td>
+          <td width="25%" align="center">
+            <img src="yosemite.png" alt="Banner 3">
+          </td>
+          <td width="25%" align="center">
+            <img src="holly.png" alt="Banner 4">
+          </td>
+        </tr>
+      </table>
+    </div>
+    
+    <div class="guestbook">
+      <a href="#" class="button">방명록 남기기</a>
+      <a href="#" class="button">친구에게 알리기</a>
+      <a href="#" class="button">즐겨찾기 추가</a>
+    </div></div>
+    
+    <div class="counter">
+      당신은 <span style="color: #ff0000; font-size: 24px; font-weight: bold; text-shadow: 2px 2px #000000;">00127</span>번째 방문자입니다
+      <div style="font-size: 12px; margin-top: 5px;">최근 방문: 2025년 4월 22일 화요일</div>
+    </div>
+    
+
+  </div>   
+</div>
+<div class="footer">
+  이 사이트는 safari에서 가장 잘 보입니다<br>
+  방문해 주셔서 감사합니다! 친구에게 이 사이트를 알려주세요!<br>
+  Copyright &copy; 2024 국민가요 플레이어. All rights reserved.<br>
+  마지막 업데이트: 2025년 4월 22일 <a href="soyongkeem@gmail.com">웹마스터에게 메일 보내기</a>
+</div>
+
+</body>
+<script>
+const cursor = document.querySelector('.cursor');
+const cursorOutline = document.querySelector('.cursor-outline');
+
+document.addEventListener('mousemove', (e) => {
+  const x = e.clientX;
+  const y = e.clientY;
+
+  cursor.style.left = `${x}px`;
+  cursor.style.top = `${y}px`;
+
+  cursorOutline.style.left = `${x}px`;
+  cursorOutline.style.top = `${y}px`;
+});
+
+  </script>
+</html>
