@@ -19,20 +19,20 @@
 .cursor-outline {
   width: 45px;
   height: 45px;
-  border: 2px dashed rgb(0, 232, 225); /* <<< 점선(dashed)으로 변경 */
+  border: 2px dashed rgb(0, 232, 225);
   border-radius: 50%;
   position: fixed;
   transform: translate(-50%, -50%);
   pointer-events: none;
   z-index: 999;
-  transition: all 0.01s linear; /* 더 빠르게 따라오게 */
+  transition: all 0.01s linear; 
   animation: spin 5s linear infinite;
 }
 @keyframes spin {
   from { transform: translate(-50%, -50%) rotate(0deg); }
   to { transform: translate(-50%, -50%) rotate(360deg); }
 }
-/* 기본 커서 없애기 */
+
 body {
   cursor: none;
         background-size: auto;
@@ -81,13 +81,20 @@ body {
   padding-top: 100px;
   }
   .jude-section {
-    background-color: rgb(0, 255, 247); /* 위아래 남는 부분 검정 */
+    background-color: rgb(0, 255, 247); 
     background-image: url('bg.gif');
   background-attachment: fixed;
   background-repeat: repeat;
   background-position: center;
-  padding: 100px 0; /* 안쪽 여백 */
+  padding: 100px 0; 
 }
+.no-section {
+  width: 100%;
+  background-color: white;
+  background-attachment: fixed;
+  padding: 50px 0;
+  padding-top: 100px;
+  }
     .header {
       background: linear-gradient(to bottom, #000080, #0000FF);
       color: #ffffff;
@@ -145,7 +152,7 @@ body {
 
   .small-section {
       
-      height: 230px; /* 원하는 높이로 고정 */
+      height: 230px; 
       border: 5px outset #c0c0c0;
       padding: 15px;
       margin-bottom: 15px;
@@ -205,6 +212,7 @@ body {
       color: #b4fff9;
       font-size: 18px;
       text-shadow: 2px 2px #000000;
+      margin-top: 100px;
       margin-bottom: 60px;
     }
     
@@ -232,9 +240,9 @@ body {
       color: #000000;
       font-weight: bold;
       text-decoration: none;
-      display: inline-flex; /* 수정 */
-      align-items: center; /* 수정 */
-      justify-content: center; /* 수정 */
+      display: inline-flex;
+      align-items: center;
+      justify-content: center; 
       font-size: 16px;
       margin: 5px;
       cursor: pointer;
@@ -332,13 +340,13 @@ body {
     }
     .banner-space td {
       text-align: center;
-      padding: 0; /* 여백 없애기 */
+      padding: 0;  
     }
 
     .banner-space img {
       display: block;
-      width: 100%; /* 칸(td) 가득! */
-      height: auto; /* 비율 유지 */
+      width: 100%;
+      height: auto;
     }
     .midi-player {
       text-align: center;
@@ -399,7 +407,7 @@ body {
     width: 100%;
     margin: 0;
     padding: 0;
-    height: 100vh; /* 화면 가득 */
+    height: 100vh;
     background-image:  url('welcome.png');
     background-size: cover;
     background-position: center;
@@ -589,9 +597,9 @@ body {
       </div>
   </div>
 </div>
-
-<div class="white-section"> 
-  <div class="container">
+</div>
+<div class="no-section"> 
+  <div class="no-container">
     <div class="section">
       <h2>플레이어 사용 예시</h2>
       <p>
